@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { PasswordValidate } from '../../validate/Validate/PasswordValidate'
 
 type dataUser = {
   id:number;
@@ -10,12 +11,20 @@ type dataUser = {
   agree: boolean;
 }
 
-
 export const Register = () => {
-  const {register, handleSubmit, errors} = useForm<dataUser>()
+  const {
+    register, 
+    handleSubmit, 
+    errors, 
+    getValues, 
+    setError, 
+    clearErrors,
+    reset
+  } = useForm<dataUser>()
   console.log(errors)
   const onSubmit = (data:dataUser) =>{
     console.log(data)
+    reset()
   }
   return (
     <div className='container md:mx-auto shadow-md m-8'>
@@ -34,24 +43,57 @@ export const Register = () => {
           className='border' 
           type="email" 
           name="email"
-          ref={register({required: 'email is empty'})}
+          ref={register({
+            required: 'email is empty',
+            pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          })}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && errors.email.type === "required" && 
+        (<p> Email Required</p>)}
+        {errors.email && errors.email.type === "pattern" && 
+        (<p> Invalid Email</p>)}
         <label htmlFor="password"> Password </label>
-        <input 
-          className='border' 
-          type="password" 
-          name="password"
-          ref={register()}
-        />
+        <PasswordValidate>
+          { (props) => (
+             <input 
+             className='border' 
+             name="password"
+             type="password" 
+             autoComplete="new-password"
+             onFocus={() => props.visible(true)}
+             onBlur={() => props.visible(false)}
+             onChange={() => props.validate(
+              "password",
+               getValues,
+               setError,
+               clearErrors
+             )}
+             ref={register({required:"Password Required"})}
+           />
+          )}
+        </PasswordValidate>
+       
         <label htmlFor="cpwsd"> Confirm Password </label>
-        <input 
-          className='border'
-          type="password"
-          autoComplete="new-password"
-          name="cpswd"
-          ref={register()}
-        />
+        <PasswordValidate>
+          {(props) => (
+            <input 
+            className='border'
+            name="cpswd"
+            type="password"
+            autoComplete="new-password"
+            onFocus={() => props.visible(true)}
+            onBlur={() => props.visible(false)}
+            onChange={() => props.validate(
+             "password",
+              getValues,
+              setError,
+              clearErrors
+            )}
+            ref={register({required:"Password Required"})}
+          />
+          )}
+        </PasswordValidate>
+        
         <label htmlFor="agree">
           <input 
             type="checkbox" 

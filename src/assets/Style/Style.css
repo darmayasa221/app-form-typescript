@@ -1,0 +1,25 @@
+.popup_content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  transform: translate(0, 10px);
+  background-color: #f1f1f1;
+  border: solid 1px #ccc;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+}
+
+.popup_password.open .popup_content {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+li.line {
+  text-decoration: line-through;
+  color: #ccc;
+  /* font-weight: 700; */
+}
