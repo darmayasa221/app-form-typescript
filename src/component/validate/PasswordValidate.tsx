@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../../assets/Style/Style.css'
 
 type ChildProps ={
   validate:(
@@ -32,6 +33,7 @@ export const PasswordValidate = (props:Props) => {
     const match2 = inputValue.match(/[A-Z]/) || [];
     const match3 = inputValue.match(/[^0-9a-zA-Z\s]/) || [];
     const match4 = inputValue.match(/[0-9]/) || [];
+ 
     //length
     if (inputValue.length >= 8){
       setRule1(true);
@@ -71,7 +73,7 @@ export const PasswordValidate = (props:Props) => {
     if(!valid){
       setError(field, {
         type:"manual",
-        message:" Password Doesn't Meet Requiremnts"
+        message:" Password Doesn't Meet Requirements"
       })
     }else{
       clearErrors(field);

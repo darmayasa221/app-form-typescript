@@ -4,6 +4,7 @@ import './index.css';
 import './assets/Style/Style.css';
 // import App from './App';
 import { Register } from './component/form/Register/Register';
+// import { AggreValidate } from './component/validate/Validate/AggreValidate';
 
 ReactDOM.render(
   <React.StrictMode>

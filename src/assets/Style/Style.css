@@ -11,7 +11,7 @@
 }
 
 .popup_password.open .popup_content {
-  z-index: 10;
+  z-index: 2;
   opacity: 1;
   visibility: visible;
   transform: translate(0, -10px);
@@ -21,5 +21,14 @@
 li.line {
   text-decoration: line-through;
   color: #ccc;
-  /* font-weight: 700; */
+}
+
+.error {
+  font-size: 15px;
+  color: #bf1650;
+}
+
+.error::before {
+  display: inline;
+  content: "⚠ ";
 }
