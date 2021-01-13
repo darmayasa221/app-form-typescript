@@ -89,7 +89,7 @@ export const PasswordValidate = (props:Props) => {
       <div className="popup_content">
             <p>Password Requirtments : </p>
           <ul>
-            <li className={rule1 === true ? "line" : "" }>Min 8 Characters</li>
+            <li className={rule1 === true ? "line" : "" }>Min 8 Characters </li>
             <li className={rule2 === true ? "line" : "" }>Lowercase (a-z)</li>
             <li className={rule3 === true ? "line" : "" }>Uppercase (A-Z)</li>
             <li className={rule4 === true ? "line" : "" }>Symbols (?#$..)</li>

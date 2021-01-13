@@ -1,27 +1,32 @@
 .popup_content {
-  opacity: 0;
+  border-radius: 2px;
   visibility: hidden;
   position: absolute;
-  transform: translate(0, 10px);
-  background-color: #f1f1f1;
-  border: solid 1px #ccc;
-  padding: 1.5rem;
+  transform: translate(0, -5px);
+  background-color: white;
+  padding: 1rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   width: auto;
+  font-size: small;
+}
+
+.popup_content p {
+  font-weight: bold;
 }
 
 .popup_password.open .popup_content {
   z-index: 2;
   opacity: 1;
   visibility: visible;
-  transform: translate(0, -10px);
+  transform: translate(0, 0px);
   transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
 }
 
 li.line {
   text-decoration: line-through;
-  color: #ccc;
+  font-style: italic;
 }
+
 
 .error {
   font-size: 15px;
