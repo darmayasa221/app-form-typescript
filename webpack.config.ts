@@ -1,11 +1,10 @@
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
-// ... your other imports
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const Development = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: isDevelopment ? 'development' : 'production',
+  mode: Development ? 'development' : 'production',
   module: {
     rules: [
       {
@@ -16,7 +15,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               plugins: [
-                isDevelopment && require.resolve('react-refresh/babel'),
+                Development && require.resolve('react-refresh/babel'),
               ].filter(Boolean),
             },
           },
@@ -25,7 +24,7 @@ module.exports = {
     ],
   },
   plugins: [
-    isDevelopment && new webpack.HotModuleReplacementPlugin(),
-    isDevelopment && new ReactRefreshWebpackPlugin(),
+    Development && new webpack.HotModuleReplacementPlugin(),
+    Development && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
 };
