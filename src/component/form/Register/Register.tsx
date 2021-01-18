@@ -162,7 +162,7 @@ export const Register = () => {
           <div className='text-center'>
             <Router>
               <Link
-                to=""
+                to="#"
                 className='font-medium text-sm text-blue-500 hover:text-blue-700'
               >
                 Forgot Password?
