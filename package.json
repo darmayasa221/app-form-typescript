@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "react-scripts build",
+    "build": "carco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -47,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
+    "react-refresh": "^0.8.3"
   }
 }
