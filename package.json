@@ -2,6 +2,10 @@
   "name": "app-form-typescript",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "15.4.0",
+    "npm": "7.0.15"
+  },
   "dependencies": {
     "@craco/craco": "^6.0.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
