@@ -1,10 +1,12 @@
 import React, {useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
 import Swal from "sweetalert2";
+
 import { PasswordValidate } from '../../validate/PasswordValidate'
 
 type dataUser = {
@@ -197,14 +199,9 @@ export const Register = () => {
               </button>
           </div>
           <div className='text-center'>
-            <Router>
-              <Link
-                to="/"
-                className='font-medium text-sm text-blue-500 hover:text-blue-700'
-              >
-                Forgot Password?
-                </Link>
-            </Router>
+            <p className='font-medium text-sm text-blue-500 hover:text-blue-700'>
+            Forgot Password?
+            </p>
           </div>
         </form>
       </div>
