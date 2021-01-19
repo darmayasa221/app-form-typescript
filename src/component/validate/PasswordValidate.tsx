@@ -5,7 +5,7 @@ type ChildProps ={
   validate:(
     field:string,
     getValues:(text:string)=> string, 
-    setError:any, 
+    setErrors:any,
     clearErrors:any
   ) => void,
   visible:(show: boolean)=> void

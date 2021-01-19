@@ -37,3 +37,7 @@ li.line {
   display: inline;
   content: "⚠ ";
 }
+
+.btn_rgs:disabled {
+  background-color: rgb(136, 135, 135) !important;
+}

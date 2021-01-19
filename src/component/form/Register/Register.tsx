@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
+import Swal from "sweetalert2";
 import { PasswordValidate } from '../../validate/PasswordValidate'
 
 type dataUser = {
@@ -14,31 +15,73 @@ type dataUser = {
   cpswd: string;
   agree: boolean;
 }
-
+const Toast =  Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+function later(delay: number) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, delay);
+  });
+}
 export const Register = () => {
-  const [user, setUser] = useState<dataUser | []>([])
+  const [,setUser] = useState<dataUser | []>([])
   const {
     register,
     handleSubmit,
     errors,
+    formState,
     getValues,
     setError,
     clearErrors,
     reset
   } = useForm<dataUser>()
-  const onSubmit = (data: dataUser) => {
-    if (data.password !== data.cpswd) {
-      setError("cpswd", {
-        type: "passwordMatch",
-        message: "Your password and confirmation password do not match."
+  const onSubmit = async (data: dataUser) => {
+    if(data.fullName ===''){
+      Toast.fire({
+        icon:'error',
+        title:'Full Name is Empty!'
       })
-    } 
-    setUser(data)
-    reset()
+    }else if(data.email ===''){
+      Toast.fire({
+        icon:'error',
+        title:'Email is Empty!'
+      })      
+    }else if(data.password ===''){
+      Toast.fire({
+        icon:'error',
+        title:'Password is Empty!'
+      })
+    }else if(data.password !== data.cpswd){
+      Toast.fire({
+        icon:'error',
+        title:'Your password and confirmation password do not match.'
+      })
+    }else if(!data.agree){
+      Toast.fire({
+        icon:'error',
+        title:'Please check list I Agree to Term of Services and Privacy Policy'
+      })
+    }else{
+      setUser(data)
+      await later (1000)
+        Swal.fire({
+          icon:'success',
+          title:'Thank you for Register',
+          showConfirmButton:false,
+          timer:1000
+        })
+      reset()
+    }
   }
-  
-
-  return (
+ return (
     <div className='mx-2 min-h-screen bg-gray-50 flex flex-col justify-center'>
       <div className='max-w-md w-full- mx-auto font-semibold'>Create an Acoount</div>
       <div className='shadow-2xl max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300'>
@@ -54,9 +97,8 @@ export const Register = () => {
               className='w-full p-2 border border-gray-300 rounded mt-1 duration-300 hover:shadow-xl transform hover:-translate-y-1 focus:-translate-y-1'
               type="text"
               name="fullName"
-              ref={register({ required: 'Full Name is Empty' })}
+              ref={register}
             />
-            {errors.fullName && <p className="error">{errors.fullName.message}</p>}
           </div>
           <div>
             <label
@@ -71,14 +113,9 @@ export const Register = () => {
               type="email"
               name="email"
               ref={register({
-                required:"email is empty",
                 pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
               })}
             />
-            {errors.email && errors.email.type === "required" &&
-              (<p className="error"> Email Required</p>)}
-            {errors.email && errors.email.type === "pattern" &&
-              (<p className="error"> Invalid Email</p>)}
           </div>
           <div>
             <label
@@ -102,15 +139,14 @@ export const Register = () => {
                     setError,
                     clearErrors
                   )}
-                  ref={register({ required: "Password Required" })}
+                  ref={register}
                 />
               )}
             </PasswordValidate>
-            {errors.password && (<p className="error"> {errors.password.message} </p>)}
           </div>
           <div>
             <label
-              htmlFor="cpwsd"
+              htmlFor="cpswd"
               className='text-sm font-black text-gray-600 block'
             >
               Confirm Password
@@ -119,18 +155,18 @@ export const Register = () => {
               {(props) => (
                 <input
                   className='w-full p-2 border border-gray-300 rounded mt-1 duration-300 hover:shadow-xl transform hover:-translate-y-1 focus:-translate-y-1'
-                  name="cpwsd"
+                  name="cpswd"
                   type="password"
                   autoComplete="new-password"
                   onFocus={() => props.visible(true)}
                   onBlur={() => props.visible(false)}
                   onChange={() => props.validate(
-                    "password",
+                    "cpswd",
                     getValues,
                     setError,
                     clearErrors
                   )}
-                  ref={register({ required: "Password Required" })}
+                  ref={register}
                 />
               )}
             </PasswordValidate>
@@ -141,7 +177,7 @@ export const Register = () => {
               className='duration-300 transform hover:-translate-y-1 focus:-translate-y-1 '
               type="checkbox"
               name="agree"
-              ref={register({ required: true })}
+              ref={register}
             />
             <label
               htmlFor="agree"
@@ -152,8 +188,9 @@ export const Register = () => {
           </div>
           <div>
             <button
-              className='btn_register duration-500 w-full py-2 px-4 bg-blue-500 hover:bg-green-500 rounded-md text-white text-sm '
+              className='btn_rgs btn_register duration-500 w-full py-2 px-4 bg-blue-500 hover:bg-green-500 rounded-md text-white text-sm'
               type="button"
+              disabled={formState.isSubmitting}
               onClick={handleSubmit(onSubmit)}
             >
               Register
