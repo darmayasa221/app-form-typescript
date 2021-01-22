@@ -70,14 +70,14 @@ export const Register = () => {
         title:'Please check list I Agree to Term of Services and Privacy Policy'
       })
     }else{
-      setUser(data)
       await later (1000)
-        Swal.fire({
-          icon:'success',
-          title:'Thank you for Register',
-          showConfirmButton:false,
-          timer:1000
-        })
+      setUser(data)
+      Swal.fire({
+        icon:'success',
+        title:'Thank you for Register',
+        showConfirmButton:false,
+        timer:1000
+      })
       reset()
     }
   }
@@ -97,6 +97,7 @@ export const Register = () => {
               className='w-full p-2 border border-gray-300 rounded mt-1 duration-300 hover:shadow-xl transform hover:-translate-y-1 focus:-translate-y-1'
               type="text"
               name="fullName"
+              title="fullName"
               ref={register}
             />
           </div>
@@ -112,6 +113,7 @@ export const Register = () => {
               autoComplete="username"
               type="email"
               name="email"
+              title="email"
               ref={register({
                 pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
               })}
@@ -129,6 +131,7 @@ export const Register = () => {
                 <input
                   className='w-full p-2 border border-gray-300 rounded mt-1 duration-300 hover:shadow-xl transform hover:-translate-y-1 focus:-translate-y-1'
                   name="password"
+                  title="password"
                   type="password"
                   autoComplete="new-password"
                   onFocus={() => props.visible(true)}
@@ -156,6 +159,7 @@ export const Register = () => {
                 <input
                   className='w-full p-2 border border-gray-300 rounded mt-1 duration-300 hover:shadow-xl transform hover:-translate-y-1 focus:-translate-y-1'
                   name="cpswd"
+                  title="cpswd"
                   type="password"
                   autoComplete="new-password"
                   onFocus={() => props.visible(true)}
@@ -175,6 +179,7 @@ export const Register = () => {
           <div className='flex items-center'>
             <input
               className='duration-300 transform hover:-translate-y-1 focus:-translate-y-1 '
+              title="agree"
               type="checkbox"
               name="agree"
               ref={register}
@@ -188,6 +193,7 @@ export const Register = () => {
           </div>
           <div>
             <button
+              title="submitForm"
               className='btn_rgs btn_register duration-500 w-full py-2 px-4 bg-blue-500 hover:bg-green-500 rounded-md text-white text-sm'
               type="button"
               disabled={formState.isSubmitting}
